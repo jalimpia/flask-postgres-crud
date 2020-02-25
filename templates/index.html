@@ -1,0 +1,74 @@
+<!--Bootstrap-->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
+
+<!--Inserting file from static folder-->
+<img src="{{url_for('static', filename='images/tip.jpg')}}" style="width:100px;height:100px">
+
+<h1>Create Form</h1>
+<!--Create Form-->
+<form method="POST" action="/create">
+  <input placeholder="First Name" type="text" name="fname"><br>
+  <input placeholder="Last Name" type="text" name="lname"><br>
+  <select name="gender"><br>
+    <option value="1">Male</option>
+    <option value="2">Female</option>
+  </select>
+  <input type="date" name="birthday"><br>
+  <input placeholder="Email Address" type="email" name="email_address"><br>
+  <input placeholder="Username" type="text" name="username"><br>
+  <input placeholder="Password" type="password" name="password"><br>
+  <input placeholder="Contact" type="text" name="contact"><br>
+  <input type="submit" value="Submit">
+</form>
+
+<!--Search Form-->
+<form method="POST" action="/search">
+  <label>Filter by: </label>
+  <select name="filter">
+    <option value="first_name">First Name</option>
+    <option value="last_name">Last Name</option>
+    <option value="email_address">Email</option>
+    <option value="username">Username</option>
+  </select>
+  <input placeholder="Keyword.." type="search" name="keyword">
+  <input type="submit" value="Search"><br>
+</form>
+{% if keyword is defined %}
+<label>Searching for: <b><i>{{keyword}}</i></b></label>
+{% endif %}
+<table border=1>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Gender</th>
+      <th>Birthday</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Customer ID</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+{%for customer in customers%}
+    <tr>
+      <td>{{customer['first_name']}}</td>
+      <td>{{customer['last_name']}}</td>
+      <td>{{customer['gender']}}</td>
+      <td>{{customer['birthday']}}</td>
+      <td>{{customer['email_address']}}</td>
+      <td>{{customer['username']}}</td>
+      <td>{{customer['contact']}}</td>
+      <td>
+        <a href="/edit/{{customer['customer_id']}}">Edit</a>
+        <a onclick="return confirm('Do you want to delete?')" href="/delete/{{customer['customer_id']}}">Delete</a>
+      </td>
+    </tr>
+{%endfor%}
+    {% if customers | count < 1 %}
+    <tr>
+      <td colspan="8"><i>No results found for {{keyword}}</i></td>
+    <tr>
+    {% endif %}
+  </tbody>
+</table>

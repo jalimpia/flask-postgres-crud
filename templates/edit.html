@@ -1,0 +1,16 @@
+<!--Update Form-->
+<h1>Update Form</h1>
+<form method="POST" action="/update/{{customers['customer_id']}}">
+  <input value="{{customers['first_name']}}" placeholder="First Name" type="text" name="fname"><br>
+  <input value="{{customers['last_name']}}" placeholder="Last Name" type="text" name="lname"><br>
+  <select value="{{customers['gender']}}" name="gender"><br>
+    <option value="1">Male</option>
+    <option value="2">Female</option>
+  </select>
+  <input value="{{customers['birthday']}}" type="date" name="birthday"><br>
+  <input value="{{customers['email_address']}}" placeholder="Email Address" type="email" name="email_address"><br>
+  <input value="{{customers['username']}}" placeholder="Username" type="text" name="username"><br>
+  <input value="{{customers['password']}}" placeholder="Password" type="password" name="password"><br>
+  <input value="{{customers['contact']}}" placeholder="Contact" type="text" name="contact"><br>
+  <input type="submit" value="Update">
+</form>
